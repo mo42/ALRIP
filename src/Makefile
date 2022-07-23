@@ -1,7 +1,7 @@
 CC = clang++
 CFLAGS = -std=c++11 -Wall -O3 -c
 
-all : ap.out rr.out
+all : ap rr
 
 # General code
 math.o : math.cpp
@@ -17,8 +17,8 @@ adapt.o : adapt.cpp
 	$(CC) $(CFLAGS) adapt.cpp
 
 # Random rotated
-rr.out : rr.o reader.o vec.o line.o rot_square.o math.o adapt.o
-	$(CC) rr.o reader.o vec.o line.o rot_square.o math.o adapt.o -o rr.out
+rr : rr.o reader.o vec.o line.o rot_square.o math.o adapt.o
+	$(CC) rr.o reader.o vec.o line.o rot_square.o math.o adapt.o -o rr
 
 rr.o : rr.cpp
 	$(CC) $(CFLAGS) rr.cpp 
@@ -33,10 +33,10 @@ rot_square.o : rot_square.cpp
 	$(CC) $(CFLAGS) rot_square.cpp
 
 # Axis parallel
-ap.out : ap.o reader.o odd_even_test.o les.o point.o square.o rot_square.o \
+ap: ap.o reader.o odd_even_test.o les.o point.o square.o rot_square.o \
 		line.o corner.o box.o mesh_point.o math.o vec.o adapt.o
 	$(CC) ap.o reader.o odd_even_test.o les.o point.o square.o rot_square.o \
-		line.o corner.o box.o mesh_point.o math.o vec.o adapt.o -o ap.out
+		line.o corner.o box.o mesh_point.o math.o vec.o adapt.o -o ap
 
 ap.o : ap.cpp
 	$(CC) $(CFLAGS) ap.cpp
@@ -63,4 +63,4 @@ clean :
 	rm -f *.o
 
 mrproper : clean
-	rm -r ap.out rr.out
+	rm -r ap rr
