@@ -38,10 +38,10 @@ inner_outer read_file(std::string path) {
     split_line = split(line, ';');
     for (auto i = split_line.begin(); i != split_line.end(); ++i) {
       std::vector<std::string> node = split(*i, ':');
-      unsigned long node_id = std::stol(node[0]);
+      unsigned long node_id = static_cast<unsigned long>(std::stol(node[0]));
       std::vector<std::string> coord = split(node[1], ',');
-      unsigned long y = std::stoi(coord[0]);
-      unsigned long x = std::stoi(coord[1]);
+      unsigned long y = static_cast<unsigned long>(std::stoi(coord[0]));
+      unsigned long x = static_cast<unsigned long>(std::stoi(coord[1]));
       m[node_id] = vec(static_cast<double>(x), static_cast<double>(y));
     }
   }
@@ -50,11 +50,11 @@ inner_outer read_file(std::string path) {
   std::map<unsigned long, std::vector<vec>> segments;
   // Collect all segments and store them in a map
   if (split_line[0].compare("Segmentcount") == 0) {
-    segmentcount = std::stol(split_line[1]);
+    segmentcount = static_cast<unsigned long>(std::stol(split_line[1]));
     for (size_t i = 0; i < segmentcount; ++i) {
       std::getline(infile, line);
       split_line = split(line, ':');
-      unsigned long segment_id = std::stol(split(split_line[0], ',')[0]);
+      unsigned long segment_id = static_cast<unsigned long>(std::stol(split(split_line[0], ',')[0]));
       split_line = split(split_line[1], ',');
       std::vector<vec> polygon;
       for (auto j = split_line.begin(); j != split_line.end(); ++j) {
