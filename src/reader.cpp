@@ -12,7 +12,7 @@
  * This function splits the string s at the character d into a
  * vector of strings.
  */
-std::vector<std::string> split(const std::string &s, char d) {
+static std::vector<std::string> split(const std::string &s, char d) {
   std::stringstream stream(s);
   std::string i;
   std::vector<std::string> tokens;
@@ -58,7 +58,7 @@ inner_outer read_file(std::string path) {
       split_line = split(split_line[1], ',');
       std::vector<vec> polygon;
       for (auto j = split_line.begin(); j != split_line.end(); ++j) {
-        polygon.push_back(m[std::stol(*j)]);
+        polygon.push_back(m[static_cast<unsigned long>(std::stol(*j))]);
       }
       segments[segment_id] = polygon;
     }
@@ -82,14 +82,14 @@ inner_outer read_file(std::string path) {
     std::getline(infile, line);
     split_line = split(line, ',');
     for (int i = 0; i < outer_count; ++i) {
-      unsigned long segment_id = std::stol(split_line[i]);
+      unsigned long segment_id = static_cast<unsigned long>(std::stol(split_line[i]));
       outer.push_back(segments[segment_id]);
     }
     // Pass over all inner segment ids and collect inner segments
     std::getline(infile, line);
     split_line = split(line, ',');
     for (int i = 0; i < inner_count; ++i) {
-      unsigned long segment_id = std::stol(split_line[i]);
+      unsigned long segment_id = static_cast<unsigned long>(std::stol(split_line[i]));
       inner.push_back(segments[segment_id]);
     }
   }
