@@ -1,5 +1,5 @@
 CC = clang++
-CFLAGS = -std=c++11 -Wall -O3 -c
+CFLAGS = -std=c++20 -Weverything -Wno-c++98-compat -O3 -c
 
 all : ap rr
 
