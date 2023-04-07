@@ -37,7 +37,7 @@ public:
   void split_left_at(tcoord m, box &b);
   /// Split the box such that m is the lower x coordinate.
   void split_right_at(tcoord m, box &b);
-  /// Set the coordiantes of the box.
+  /// Set the coordinates of the box.
   void set(tcoord lx, tcoord rx, tcoord uy, tcoord ly);
   /// Add points to the list such that the first and last points
   /// in the list are the corners of the box.

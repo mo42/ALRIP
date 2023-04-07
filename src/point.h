@@ -4,7 +4,7 @@
 #include "types.h"
 
 /**
- * Represents a point in two-dimensional euclidian space.
+ * Represents a point in two-dimensional Euclidean space.
  */
 class point {
 public:
