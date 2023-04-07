@@ -2,7 +2,7 @@
 #define VEC_H_
 
 /**
- * Represents a point in two-dimensional euclidian space and a
+ * Represents a point in two-dimensional Euclidean space and a
  * vector.
  */
 class vec {
@@ -39,7 +39,7 @@ public:
   vec &operator/=(double s);
   /// Return the dot product of two vectors.
   double operator*(const vec &v) const;
-  /// Return the euclidian distance from the origin the point (length of
+  /// Return the Euclidean distance from the origin the point (length of
   /// the vector).
   double length(void) const;
   /// Return a vector that is perpendicular to this vector.
