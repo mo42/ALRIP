@@ -4,6 +4,7 @@
 #include "math.h"
 #include "rot_square.h"
 #include "vec.h"
+#include "adapt.h"
 
 rot_square adapt(rot_square &s, std::vector<vec> &polygon) {
   for (unsigned int i = 0, j = 1; i < polygon.size();
