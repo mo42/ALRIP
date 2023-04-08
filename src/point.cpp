@@ -16,14 +16,14 @@ void point::set(tcoord x, tcoord y) {
   this->y = y;
 }
 
-point &point::operator=(const point &rhs) {
+point& point::operator=(const point& rhs) {
   x = rhs.x;
   y = rhs.y;
   return *this;
 }
 
-bool point::operator>(const point &p) { return x > p.x; }
+bool point::operator>(const point& p) { return x > p.x; }
 
-bool point::operator<(const point &p) { return x < p.x; }
+bool point::operator<(const point& p) { return x < p.x; }
 
-bool point::operator==(const point &s) { return x == s.x && y == s.y; }
+bool point::operator==(const point& s) { return x == s.x && y == s.y; }

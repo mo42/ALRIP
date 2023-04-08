@@ -7,7 +7,7 @@
 
 square::square(void) { size = 0; }
 
-square::square(point &p, tcoord size, unsigned char location) : size(size) {
+square::square(point& p, tcoord size, unsigned char location) : size(size) {
   switch (location) {
   case 0:
     llc = p;
@@ -39,7 +39,7 @@ square::square(point &p, tcoord size, unsigned char location) : size(size) {
   }
 }
 
-square::square(square &&s) {
+square::square(square&& s) {
   std::swap(this->llc, s.llc);
   std::swap(this->lrc, s.lrc);
   std::swap(this->urc, s.urc);
@@ -47,7 +47,7 @@ square::square(square &&s) {
   std::swap(this->size, s.size);
 }
 
-square::square(const square &s) {
+square::square(const square& s) {
   this->size = s.size;
   this->llc = s.llc;
   this->lrc = s.lrc;
@@ -55,8 +55,8 @@ square::square(const square &s) {
   this->ulc = s.ulc;
 }
 
-square::square(const point &llc, const point &lrc, const point &urc,
-               const point &ulc) {
+square::square(const point& llc, const point& lrc, const point& urc,
+               const point& ulc) {
   this->llc = llc;
   this->lrc = lrc;
   this->urc = urc;
@@ -66,20 +66,20 @@ square::square(const point &llc, const point &lrc, const point &urc,
 
 bool square::is_degenerate(void) { return size == 0; }
 
-bool square::is_inside(const point &t) {
+bool square::is_inside(const point& t) {
   if (t.x > llc.x && t.x < lrc.x && t.y > llc.y && t.y < ulc.y)
     return true;
   else
     return false;
 }
 
-bool square::operator==(const square &s) const { return size == s.size; }
+bool square::operator==(const square& s) const { return size == s.size; }
 
-bool square::operator>(const square &s) const { return size > s.size; }
+bool square::operator>(const square& s) const { return size > s.size; }
 
-bool square::operator<(const square &s) const { return size < s.size; }
+bool square::operator<(const square& s) const { return size < s.size; }
 
-square &square::operator=(const square &s) {
+square& square::operator=(const square& s) {
   llc = s.llc;
   lrc = s.lrc;
   urc = s.urc;
@@ -90,8 +90,8 @@ square &square::operator=(const square &s) {
 
 tcoord square::get_size() { return size; }
 
-void square::set(const point &llc, const point &lrc, const point &urc,
-                 const point &ulc) {
+void square::set(const point& llc, const point& lrc, const point& urc,
+                 const point& ulc) {
   this->llc = llc;
   this->lrc = lrc;
   this->urc = urc;

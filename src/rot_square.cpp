@@ -8,7 +8,7 @@
 
 rot_square::rot_square(void) { size = 0; }
 
-rot_square::rot_square(const rot_square &s) {
+rot_square::rot_square(const rot_square& s) {
   size = s.size;
   angle = s.angle;
   translation = s.translation;
@@ -19,7 +19,7 @@ rot_square::rot_square(const rot_square &s) {
   corners[3] = s.corners[3];
 }
 
-rot_square::rot_square(const vec &p, const vec &q, const vec &r, const vec &s) {
+rot_square::rot_square(const vec& p, const vec& q, const vec& r, const vec& s) {
   corners[0] = p;
   corners[1] = q;
   corners[2] = r;
@@ -30,11 +30,11 @@ rot_square::rot_square(const vec &p, const vec &q, const vec &r, const vec &s) {
   scale = vec(1.0, 1.0);
 }
 
-bool rot_square::operator>(const rot_square &s) const { return size > s.size; }
+bool rot_square::operator>(const rot_square& s) const { return size > s.size; }
 
-bool rot_square::operator<(const rot_square &s) const { return size < s.size; }
+bool rot_square::operator<(const rot_square& s) const { return size < s.size; }
 
-rot_square &rot_square::operator=(const rot_square &s) {
+rot_square& rot_square::operator=(const rot_square& s) {
   size = s.size;
   angle = s.angle;
   translation = s.translation;
@@ -48,7 +48,7 @@ rot_square &rot_square::operator=(const rot_square &s) {
 
 double rot_square::get_size() { return size; }
 
-bool rot_square::inside(const vec &p) const {
+bool rot_square::inside(const vec& p) const {
   line l0 = line(corners[0], corners[1]);
   line l1 = line(corners[1], corners[2]);
   line l2 = line(corners[2], corners[3]);
@@ -60,7 +60,7 @@ bool rot_square::inside(const vec &p) const {
     return false;
 }
 
-bool rot_square::inside(const line &l) const {
+bool rot_square::inside(const line& l) const {
   line l0 = line(corners[0], corners[1]);
   line l1 = line(corners[1], corners[2]);
   line l2 = line(corners[2], corners[3]);
@@ -76,7 +76,7 @@ bool rot_square::inside(const line &l) const {
     return false;
 }
 
-bool rot_square::attached(const line &l) const {
+bool rot_square::attached(const line& l) const {
   line l0 = line(corners[0], corners[1]);
   line l1 = line(corners[1], corners[2]);
   line l2 = line(corners[2], corners[3]);
@@ -92,7 +92,7 @@ bool rot_square::attached(const line &l) const {
     return false;
 }
 
-rot_square rot_square::adapt(const vec &p, const line &l) const {
+rot_square rot_square::adapt(const vec& p, const line& l) const {
   rot_square max;
   for (unsigned char i = 0; i < 4; ++i) {
     line l1 = line(corners[i], corners[(i + 1) % 4]);
@@ -122,7 +122,7 @@ rot_square rot_square::adapt(const vec &p, const line &l) const {
   return max;
 }
 
-void rot_square::adapt(const line &l) {
+void rot_square::adapt(const line& l) {
   if (inside(l) || inside(l.start()) || inside(l.target())) {
     rot_square max;
     for (unsigned char i = 0; i < 4; ++i) {
@@ -152,11 +152,11 @@ void rot_square::adapt(const line &l) {
 
 void rot_square::set_angle(double a) { angle = a; }
 
-void rot_square::set_scale(vec &s) { scale = s; }
+void rot_square::set_scale(vec& s) { scale = s; }
 
 double rot_square::get_angle() const { return angle; }
 
-void rot_square::set_translation(const vec &v) { translation = v; }
+void rot_square::set_translation(const vec& v) { translation = v; }
 
 void rot_square::transform_rectangle() {
   scale.x = 1.0 / scale.x;
@@ -168,7 +168,7 @@ void rot_square::transform_rectangle() {
   corners[3] = ::transform(corners[3], translation, scale, angle);
 }
 
-vec rot_square::transform(vec &v) const {
+vec rot_square::transform(vec& v) const {
   return ::transform(v, translation, scale, angle);
 }
 

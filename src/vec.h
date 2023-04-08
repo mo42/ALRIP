@@ -14,31 +14,31 @@ public:
   /// Generate a specific point or vector.
   vec(double x, double y);
   /// Return true if two points or vectors are equal.
-  bool operator==(const vec &v) const;
+  bool operator==(const vec& v) const;
   /// Return true if two points or vectors are not equal.
-  bool operator!=(const vec &v);
+  bool operator!=(const vec& v);
   /// Assignment operator
-  vec &operator=(const vec &v);
+  vec& operator=(const vec& v);
   /// Invert a vector.
   vec operator-(void) const;
   /// Add a vector to another vector.
-  vec operator+(const vec &v) const;
+  vec operator+(const vec& v) const;
   /// Subtract a vector from another vector.
-  vec operator-(const vec &v) const;
+  vec operator-(const vec& v) const;
   /// Scale a vector.
   vec operator*(double s) const;
   /// Scale a vector.
   vec operator/(double s) const;
   /// Add a vector to another vector.
-  vec &operator+=(const vec &v);
+  vec& operator+=(const vec& v);
   /// Subtract a vector from another vector.
-  vec &operator-=(const vec &v);
+  vec& operator-=(const vec& v);
   /// Scale a vector.
-  vec &operator*=(double s);
+  vec& operator*=(double s);
   /// Scale a vector.
-  vec &operator/=(double s);
+  vec& operator/=(double s);
   /// Return the dot product of two vectors.
-  double operator*(const vec &v) const;
+  double operator*(const vec& v) const;
   /// Return the Euclidean distance from the origin the point (length of
   /// the vector).
   double length(void) const;

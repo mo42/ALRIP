@@ -30,7 +30,7 @@
  * are kept, which does not change the polygon.
  *
  */
-void strip_segments(std::vector<point> &polygon) {
+void strip_segments(std::vector<point>& polygon) {
   auto i = polygon.begin();
   auto j = std::next(i, 1);
   for (auto k = std::next(j, 1); k != polygon.end(); ++i, ++j, ++k) {
@@ -60,7 +60,7 @@ std::vector<point> create_instance(polygons p) {
 /**
  * Scale all points vertically.
  */
-void scale_y(instances &inst, int scale) {
+void scale_y(instances& inst, int scale) {
   for (auto i = inst.begin(); i != inst.end(); ++i) {
     for (auto j = (*i).begin(); j != (*i).end(); ++j) {
       for (auto k = (*j).begin(); k != (*j).end(); ++k) {
@@ -70,7 +70,7 @@ void scale_y(instances &inst, int scale) {
   }
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   if (argc != 3) {
     std::cout << "Usage: filename scale factor" << std::endl;
     return 1;

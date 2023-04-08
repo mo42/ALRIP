@@ -48,7 +48,7 @@ square corner::corner_case(tcoord size) {
   }
 }
 
-corner::corner(point &p, point &q, box &b) : b(b) {
+corner::corner(point& p, point& q, box& b) : b(b) {
   this->cp = point(p.x, q.y);
   if (q.x > p.x)
     x = type_side::right;
@@ -60,7 +60,7 @@ corner::corner(point &p, point &q, box &b) : b(b) {
     y = type_side::left;
 }
 
-bool corner::is_in_area(point &q) {
+bool corner::is_in_area(point& q) {
   bool b = (q.x >= cp.x && x == type_side::right) ||
            (q.x <= cp.x && x == type_side::left);
   bool c = (q.y >= cp.y && y == type_side::left) ||
@@ -68,7 +68,7 @@ bool corner::is_in_area(point &q) {
   return b && c;
 }
 
-square corner::largest_square(point &q) {
+square corner::largest_square(point& q) {
   if (!is_in_area(q)) {
     return square();
   } else {
