@@ -27,7 +27,7 @@ double length(vec_pair pair) {
 /**
  * Return the pair with minimal distance.
  */
-static vec_pair min_pair(line &l, line &m) {
+static vec_pair min_pair(line& l, line& m) {
   vec_pair pairs[4];
   pairs[0] = vec_pair(l.start(), m.start());
   pairs[1] = vec_pair(l.start(), m.target());
@@ -43,14 +43,14 @@ static vec_pair min_pair(line &l, line &m) {
 /**
  * Return the distance of the minimal pair.
  */
-static double min_pair_dist(line &l, line &m) { return length(min_pair(l, m)); }
+static double min_pair_dist(line& l, line& m) { return length(min_pair(l, m)); }
 
 /**
  * Largest square constraint by 3 fixed points
  * return largest square
  * attachment of segments is guaranteed by construction
  */
-static rot_square fixed_points_construction(line &l, line &m, line &n) {
+static rot_square fixed_points_construction(line& l, line& m, line& n) {
   line l1, l2;
   line top;
   if (min_pair_dist(l, m) > min_pair_dist(l, n)) {
@@ -150,7 +150,7 @@ static rot_square fixed_points_construction(line &l, line &m, line &n) {
  * Attachment of segments is guaranteed by construction
  * Square contains no segments
  */
-static rot_square fixed_points(line &l, line &m, line &n) {
+static rot_square fixed_points(line& l, line& m, line& n) {
   rot_square s = fixed_points_construction(l, m, n);
   if (s.inside(l.start()) || s.inside(l.target()) || s.inside(m.start()) ||
       s.inside(m.target()) || s.inside(n.start()) || s.inside(n.target()))
@@ -160,7 +160,7 @@ static rot_square fixed_points(line &l, line &m, line &n) {
   return s;
 }
 
-static bool exists_other_side(line &s, vec p, line &l) {
+static bool exists_other_side(line& s, vec p, line& l) {
   return s.side(p) != s.side(l.start()) || s.side(p) != s.side(l.target());
 }
 
@@ -173,7 +173,7 @@ static bool exists_other_side(line &s, vec p, line &l) {
  * Return largest square
  * Attachment to p is guaranteed by construction
  */
-static rot_square corner(line &c1, line &c2, vec p) {
+static rot_square corner(line& c1, line& c2, vec p) {
   vec i = c1.intersect_point(c2);
   line l1 = line(p, p + c1.dir());
   line l2 = line(p, p + c2.dir());
@@ -204,7 +204,7 @@ static rot_square corner(line &c1, line &c2, vec p) {
  * Return largest square
  * Attachment to n is guaranteed by construction
  */
-static rot_square corner_overlap(line &l, line &s, line &n, bool s_side) {
+static rot_square corner_overlap(line& l, line& s, line& n, bool s_side) {
   vec i = l.intersect_point(s);
   vec j = s.intersect_point(n);
   vec d = s.dir().perpendicular();
@@ -236,7 +236,7 @@ static rot_square corner_overlap(line &l, line &s, line &n, bool s_side) {
  * Attachment to s is guaranteed by construction
  *
  */
-static rot_square corner(line &c1, line &c2, line &s) {
+static rot_square corner(line& c1, line& c2, line& s) {
   rot_square ss = corner(c1, c2, s.start());
   rot_square st = corner(c1, c2, s.target());
   if (ss.inside(s.target()) || ss.inside(s))
@@ -274,7 +274,7 @@ static rot_square corner(line &c1, line &c2, line &s) {
  * Return largest square
  * Zero square if l, m or n aren't attached to the square
  */
-static rot_square single_side(line &l, line &m, line &n) {
+static rot_square single_side(line& l, line& m, line& n) {
   vec d = l.dir().perpendicular();
   line s1 = line(m.start(), m.start() + d);
   line s2 = line(m.target(), m.target() + d);
@@ -311,7 +311,7 @@ static rot_square single_side(line &l, line &m, line &n) {
  * Return largest square
  * Attachment to n is guaranteed
  */
-static rot_square single_overlap(line &l, line &m, line &n) {
+static rot_square single_overlap(line& l, line& m, line& n) {
   vec i = l.intersect_point(m);
   vec d = l.dir().perpendicular();
   line s = line(i, i + d);
@@ -339,7 +339,7 @@ static rot_square single_overlap(line &l, line &m, line &n) {
  * Return largest square
  * l, m and n are attached to the square
  */
-static rot_square double_overlap(line &l, line &m, line &n) {
+static rot_square double_overlap(line& l, line& m, line& n) {
   const vec i1 = l.intersect_point(m);
   const vec i2 = l.intersect_point(n);
   vec s1, s2, s3, s4;
@@ -397,7 +397,7 @@ static rot_square double_overlap(line &l, line &m, line &n) {
  * Return largest square
  * l, m and n are attached to the square
  */
-static rot_square sliding_point(line &l, line &m, line &n) {
+static rot_square sliding_point(line& l, line& m, line& n) {
   if (l.side(m.start()) == l.side(n.start()) && l.side(m) && l.side(n))
     return single_side(l, m, n);
   else if (l.side(m.start()) != l.side(n.start()) && l.side(m) && l.side(n))
@@ -418,7 +418,7 @@ static rot_square sliding_point(line &l, line &m, line &n) {
  *
  * Return largest square
  */
-static rot_square sliding_points(line &bc, line &ba, line &ac) {
+static rot_square sliding_points(line& bc, line& ba, line& ac) {
   vec a = ba.intersect_point(ac);
   vec b = bc.intersect_point(ba);
   vec c = bc.intersect_point(ac);
@@ -447,7 +447,7 @@ static rot_square sliding_points(line &bc, line &ba, line &ac) {
  * Return the largest square for one specific permutation of l, m
  * and n.
  */
-static rot_square largest_square(line &l, line &m, line &n, vec &scale) {
+static rot_square largest_square(line& l, line& m, line& n, vec& scale) {
   // Transform according to l
   double angle = acos(l.dir().x / l.dir().length());
   if (l.dir().y < 0.0)
@@ -515,7 +515,8 @@ static rot_square largest_square(line &l, line &m, line &n, vec &scale) {
 /**
  * Return the largest square for all permutations of l, m and n.
  */
-static rot_square largest_square_permutation(line &l, line &m, line &n, vec &scale) {
+static rot_square largest_square_permutation(line& l, line& m, line& n,
+                                             vec& scale) {
   rot_square max = largest_square(l, m, n, scale);
   max = std::max(max, largest_square(l, n, m, scale));
   max = std::max(max, largest_square(m, l, n, scale));
@@ -527,7 +528,8 @@ static rot_square largest_square_permutation(line &l, line &m, line &n, vec &sca
 /**
  * Sample the polygon once and return the largest square.
  */
-static rot_square sample_square(std::vector<std::vector<vec>> &polygon, vec &scale) {
+static rot_square sample_square(std::vector<std::vector<vec>>& polygon,
+                                vec& scale) {
   // Sample uniformly at random from a multi-polygon
   // Calculate the size of the entire instance
   unsigned int size = 0;
@@ -577,7 +579,7 @@ static rot_square sample_square(std::vector<std::vector<vec>> &polygon, vec &sca
  * Return true if the point c lies below the segment a b.
  * Point c lies between a and b.
  */
-static bool below(vec &a, vec &b, vec &c) {
+static bool below(vec& a, vec& b, vec& c) {
   long m = (a.y - b.y) / (a.x - b.x);
   long d = a.y - m * a.x;
   return c.y < m * c.x + d;
@@ -588,7 +590,7 @@ static bool below(vec &a, vec &b, vec &c) {
  * There are at most two subsequent points p1, p2 such that p1.x ==
  * p2.x or p1.y == p2.y
  */
-static bool is_inside(vec &p, std::vector<vec> &polygon) {
+static bool is_inside(vec& p, std::vector<vec>& polygon) {
   bool inside = false;
   for (unsigned int i = 0, j = 1, k = 2, l = 3; i < polygon.size(); ++i,
                     ++j %= polygon.size(), ++k %= polygon.size(),
@@ -597,8 +599,9 @@ static bool is_inside(vec &p, std::vector<vec> &polygon) {
          (p.x > polygon[i].x && p.x < polygon[j].x)) &&
         (below(polygon[i], polygon[j], p)))
       inside = !inside;
-    if ((p.x == polygon[j].x) && ((p.x < polygon[i].x && p.x > polygon[k].x) ||
-                                  (p.x > polygon[i].x && p.x < polygon[k].x)) &&
+    if ((p.x == polygon[j].x) &&
+        ((p.x < polygon[i].x && p.x > polygon[k].x) ||
+         (p.x > polygon[i].x && p.x < polygon[k].x)) &&
         (p.y < polygon[j].y))
       inside = !inside;
     if ((p.x == polygon[j].x && p.x == polygon[k].x) &&
@@ -614,7 +617,7 @@ static bool is_inside(vec &p, std::vector<vec> &polygon) {
  * There are at most two subsequent points p1, p2 such that p1.x ==
  * p2.x or p1.y == p2.y
  */
-static bool inside(std::vector<vec> &polygon, rot_square &s) {
+static bool inside(std::vector<vec>& polygon, rot_square& s) {
   std::vector<vec> polygon_transf;
   for (auto i = polygon.begin(); i != polygon.end(); ++i) {
     polygon_transf.push_back(s.transform(*i));
@@ -628,8 +631,8 @@ static bool inside(std::vector<vec> &polygon, rot_square &s) {
 /**
  * Sample the polygon k times and return the largest square.
  */
-static rot_square loop(unsigned int k, std::vector<std::vector<vec>> &polygon,
-                double scale) {
+static rot_square loop(unsigned int k, std::vector<std::vector<vec>>& polygon,
+                       double scale) {
   rot_square max;
   std::setw(2);
   std::setprecision(2);
@@ -655,7 +658,7 @@ static rot_square loop(unsigned int k, std::vector<std::vector<vec>> &polygon,
   return max;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   if (argc != 3) {
     return 1;
   } else {

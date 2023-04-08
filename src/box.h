@@ -28,15 +28,15 @@ public:
   /// Set borders of the box.
   box(tcoord lx, tcoord rx, tcoord uy, tcoord ly);
   /// Copy constructor
-  box(const box &b);
+  box(const box& b);
   /// Return the horizontal distance from the point to the box.
-  tcoord distance_x(const point &p, type_side x, type_side y);
+  tcoord distance_x(const point& p, type_side x, type_side y);
   /// Return the vertical distance from the point corner to the box.
-  tcoord distance_y(const point &p, type_side x, type_side y);
+  tcoord distance_y(const point& p, type_side x, type_side y);
   /// Split the box such that m is the upper coordinate.
-  void split_left_at(tcoord m, box &b);
+  void split_left_at(tcoord m, box& b);
   /// Split the box such that m is the lower x coordinate.
-  void split_right_at(tcoord m, box &b);
+  void split_right_at(tcoord m, box& b);
   /// Set the coordinates of the box.
   void set(tcoord lx, tcoord rx, tcoord uy, tcoord ly);
   /// Add points to the list such that the first and last points
@@ -53,4 +53,3 @@ public:
 };
 
 #endif // BOX_H_
-

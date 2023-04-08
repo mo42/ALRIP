@@ -8,4 +8,3 @@ mesh_point::mesh_point(tcoord x, tcoord y) : point(x, y) {
   this->left = nullptr;
   this->right = nullptr;
 }
-

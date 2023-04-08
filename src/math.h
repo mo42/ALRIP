@@ -8,14 +8,14 @@
 #include "vec.h"
 
 /// Return the distance between point u and v
-double length(const vec &v, const vec &u);
+double length(const vec& v, const vec& u);
 /// Transform the line according to the coordinate system of the square,
 /// That is, translation, scaling and rotation.
-line transform(const line &l, const vec &translation, const vec &scale,
+line transform(const line& l, const vec& translation, const vec& scale,
                double angle);
 /// Transform the point according to the coordinate system of the square,
 /// That is, translation, scaling and rotation.
-vec transform(const vec &v, const vec &translation, const vec &scale,
+vec transform(const vec& v, const vec& translation, const vec& scale,
               double angle);
 /// Return the absolute distance
 tcoord dist(tcoord i, tcoord j);
@@ -30,6 +30,6 @@ bool comp_point_x(point i, point j);
 /// of j.
 bool comp_point_y(point i, point j);
 /// Return the size of the square.
-double size(rot_square &s);
+double size(rot_square& s);
 
 #endif // MATH_H_

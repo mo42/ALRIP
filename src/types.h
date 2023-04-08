@@ -8,4 +8,3 @@ enum class type_side : bool {
   right //= false // below
 };
 #endif
-

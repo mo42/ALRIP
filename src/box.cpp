@@ -17,13 +17,13 @@ box::box(tcoord lx, tcoord ux, tcoord uy, tcoord ly) {
   this->ly = ly;
 }
 
-box::box(const box &b) {
+box::box(const box& b) {
   this->lx = b.lx;
   this->ux = b.ux;
   this->uy = b.uy;
   this->ly = b.ly;
 }
-tcoord box::distance_x(const point &p, type_side x, type_side y) {
+tcoord box::distance_x(const point& p, type_side x, type_side y) {
   if (x == type_side::left) {
     return p.x - lx;
   } else {
@@ -31,7 +31,7 @@ tcoord box::distance_x(const point &p, type_side x, type_side y) {
   }
 }
 
-tcoord box::distance_y(const point &p, type_side x, type_side y) {
+tcoord box::distance_y(const point& p, type_side x, type_side y) {
   if (y == type_side::right) {
     return p.y - ly;
   } else {
@@ -39,12 +39,12 @@ tcoord box::distance_y(const point &p, type_side x, type_side y) {
   }
 }
 
-void box::split_left_at(tcoord m, box &b) {
+void box::split_left_at(tcoord m, box& b) {
   b.set(lx, m, uy, ly);
   return;
 }
 
-void box::split_right_at(tcoord m, box &b) {
+void box::split_right_at(tcoord m, box& b) {
   b.set(m, ux, uy, ly);
   return;
 }
