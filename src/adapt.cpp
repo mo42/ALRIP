@@ -7,7 +7,7 @@
 #include "vec.h"
 
 rot_square adapt(rot_square& s, std::vector<vec>& polygon) {
-  for (unsigned int i = 0, j = 1; i < polygon.size();
+  for (std::size_t i = 0, j = 1; i < polygon.size();
        ++i, ++j %= polygon.size()) {
     line l = line(polygon[i], polygon[j]);
     s.adapt(transform(l, s.translation, s.scale, s.angle));

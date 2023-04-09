@@ -592,7 +592,7 @@ static bool below(vec& a, vec& b, vec& c) {
  */
 static bool is_inside(vec& p, std::vector<vec>& polygon) {
   bool inside = false;
-  for (unsigned int i = 0, j = 1, k = 2, l = 3; i < polygon.size(); ++i,
+  for (size_t i = 0, j = 1, k = 2, l = 3; i < polygon.size(); ++i,
                     ++j %= polygon.size(), ++k %= polygon.size(),
                     ++l %= polygon.size()) {
     if (((p.x < polygon[i].x && p.x > polygon[j].x) ||
@@ -636,7 +636,7 @@ static rot_square loop(unsigned int k, std::vector<std::vector<vec>>& polygon,
   rot_square max;
   std::setw(2);
   std::setprecision(2);
-  for (unsigned int i = 0; i < k; ++i) {
+  for (size_t i = 0; i < k; ++i) {
     vec s = vec(1.0, scale);
     rot_square s1 = sample_square(polygon, s);
     s.x = scale;
