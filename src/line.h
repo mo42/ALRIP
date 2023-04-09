@@ -19,7 +19,7 @@ public:
   /// Create a degenerate segment.
   line(void);
   /// Create a copy of l.
-  line(const line& l);
+  line(const line& l) = default;
   /// Create a segment with s as the start point and t as the endpoint.
   line(const vec& s, const vec& t);
   /// Return the parameter at which this line intersects l

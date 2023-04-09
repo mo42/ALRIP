@@ -14,12 +14,6 @@ line::line(const vec& s, const vec& t) {
   this->d = t - s;
 }
 
-line::line(const line& l) {
-  s = l.start();
-  t = l.target();
-  d = l.dir();
-}
-
 double line::intersect(const line& l) const {
   double det_m = det(l.dir(), -d);
   double det_r = det(l.dir(), s - l.start());

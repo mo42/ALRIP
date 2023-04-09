@@ -8,6 +8,7 @@
  */
 class point {
 public:
+  point(point const&) = default;
   /// Generate a point at the origin.
   point(void);
   /// Generate a specific point.
