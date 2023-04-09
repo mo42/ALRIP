@@ -77,22 +77,20 @@ inner_outer read_file(std::string path) {
     std::getline(infile, line);
     split_line = split(line, ':');
     split_line = split(split_line[1], ',');
-    int outer_count = std::stoi(split_line[0]);
-    int inner_count = std::stoi(split_line[1]);
+    size_t outer_count = std::stoul(split_line[0]);
+    size_t inner_count = std::stoul(split_line[1]);
     // Pass over all outer segment ids and collect outer segments
     std::getline(infile, line);
     split_line = split(line, ',');
-    for (int i = 0; i < outer_count; ++i) {
-      unsigned long segment_id =
-          static_cast<unsigned long>(std::stol(split_line[i]));
+    for (size_t i = 0; i < outer_count; ++i) {
+      unsigned long segment_id = std::stoul(split_line[i]);
       outer.push_back(segments[segment_id]);
     }
     // Pass over all inner segment ids and collect inner segments
     std::getline(infile, line);
     split_line = split(line, ',');
-    for (int i = 0; i < inner_count; ++i) {
-      unsigned long segment_id =
-          static_cast<unsigned long>(std::stol(split_line[i]));
+    for (size_t i = 0; i < inner_count; ++i) {
+      unsigned long segment_id = std::stoul(split_line[i]);
       inner.push_back(segments[segment_id]);
     }
   }
