@@ -20,7 +20,7 @@
 
 typedef std::tuple<vec, vec> vec_pair;
 
-double length(vec_pair pair) {
+static double length(vec_pair pair) {
   return length(std::get<0>(pair), std::get<1>(pair));
 }
 

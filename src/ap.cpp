@@ -30,7 +30,7 @@
  * are kept, which does not change the polygon.
  *
  */
-void strip_segments(std::vector<point>& polygon) {
+static void strip_segments(std::vector<point>& polygon) {
   auto i = polygon.begin();
   auto j = std::next(i, 1);
   for (auto k = std::next(j, 1); k != polygon.end(); ++i, ++j, ++k) {
@@ -46,7 +46,7 @@ void strip_segments(std::vector<point>& polygon) {
 /**
  * Create an instance for the largest empty square algorithm.
  */
-std::vector<point> create_instance(polygons p) {
+static std::vector<point> create_instance(polygons p) {
   std::vector<point> points;
   for (auto i = p.begin(); i != p.end(); ++i) {
     for (auto j = (*i).begin(); j != (*i).end(); ++j) {
@@ -60,7 +60,7 @@ std::vector<point> create_instance(polygons p) {
 /**
  * Scale all points vertically.
  */
-void scale_y(instances& inst, int scale) {
+static void scale_y(instances& inst, int scale) {
   for (auto i = inst.begin(); i != inst.end(); ++i) {
     for (auto j = (*i).begin(); j != (*i).end(); ++j) {
       for (auto k = (*j).begin(); k != (*j).end(); ++k) {
