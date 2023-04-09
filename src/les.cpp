@@ -10,9 +10,9 @@
 #include <stack>
 #include <vector>
 
-#include "les.h"
 #include "box.h"
 #include "corner.h"
+#include "les.h"
 #include "math.h"
 #include "mesh_point.h"
 #include "square.h"
@@ -38,14 +38,16 @@ static tcoord look_up(mesh_point& p) { return p.up == nullptr ? p.y : p.up->y; }
  * Return the point having the same x and a lower y
  * coordinate and a maximum distance to p.
  */
-static tcoord look_down(mesh_point& p) { return p.down == nullptr ? p.y : p.down->y; }
+static tcoord look_down(mesh_point& p) {
+  return p.down == nullptr ? p.y : p.down->y;
+}
 
 /**
  * Return the largest square given three points such that no one
  * lies inside the square.
  */
 static square largest_square_triple(point& i, point& j, point& k,
-                             std::vector<point>& points, box& b) {
+                                    std::vector<point>& points, box& b) {
   corner c = corner(i, j, b);
   if (c.is_in_area(k)) {
     square s = c.largest_square(k);
@@ -87,7 +89,8 @@ static square largest_square_point_set(std::vector<point>& points, box& b) {
 /**
  * Add points at the beginning and end of the lists.
  */
-static std::list<point> add_endpoints(std::vector<point>& list, box& b, tcoord m) {
+static std::list<point> add_endpoints(std::vector<point>& list, box& b,
+                                      tcoord m) {
   if ((*list.begin()).x < m) {
     std::list<point> l;
     for (auto i = list.begin(); i != list.end(); ++i)
@@ -105,7 +108,8 @@ static std::list<point> add_endpoints(std::vector<point>& list, box& b, tcoord m
  * Add points to the list if two consecutive points have a larger
  * vertical distance than the square.
  */
-static void add_distance_points(std::list<point>& points, box& b, square s, tcoord m) {
+static void add_distance_points(std::list<point>& points, box& b, square s,
+                                tcoord m) {
   if ((*points.begin()).x < m) {
     auto i = points.begin();
     for (auto i_next = std::next(i, 1); i_next != points.end(); ++i, ++i_next) {
@@ -137,7 +141,8 @@ static void add_distance_points(std::list<point>& points, box& b, square s, tcoo
  * Convert the list to a list of mesh_points and add corner points such
  * that it has an orthogonal shape.
  */
-static std::list<mesh_point> create_mesh_list(std::list<point>& points, tcoord m) {
+static std::list<mesh_point> create_mesh_list(std::list<point>& points,
+                                              tcoord m) {
   std::list<mesh_point> list;
   // If there are points with the same y-value keep only the nearest
   for (auto i = points.begin(); i != points.end(); ++i) {
@@ -177,7 +182,8 @@ static std::list<mesh_point> create_mesh_list(std::list<point>& points, tcoord m
  * Add points to the list such that every point has at least one
  * (and at most two) points with the same horizontal distance to m.
  */
-static void fill_vertical_points(std::list<mesh_point>& list, tcoord m, box& b) {
+static void fill_vertical_points(std::list<mesh_point>& list, tcoord m,
+                                 box& b) {
   if ((*list.begin()).x < m) { // Left side
     std::stack<mesh_point> su;
     auto i = list.begin();
@@ -409,7 +415,7 @@ static void add_vertical_connections(std::list<mesh_point>& list, tcoord m) {
  * corresponding point (same height) on the other side.
  */
 static void fill_horizontal_points(std::list<mesh_point>& left,
-                            std::list<mesh_point>& right, tcoord m) {
+                                   std::list<mesh_point>& right) {
   auto il = left.begin();
   auto il_next = std::next(il, 1);
   auto ir = right.begin();
@@ -457,7 +463,7 @@ static void fill_horizontal_points(std::list<mesh_point>& left,
  * Add horizontal connections between the points.
  */
 static void add_horizontal_connections(std::list<mesh_point>& left,
-                                std::list<mesh_point>& right) {
+                                       std::list<mesh_point>& right) {
   // Left to right connections
   auto il = left.begin();
   auto ir = right.begin();
@@ -503,7 +509,7 @@ static void add_horizontal_connections(std::list<mesh_point>& left,
  * lies inside the square (divide and conquer).
  */
 static square largest_square_recursion(std::vector<point>& points_x,
-                                std::vector<point>& points_y, box& b) {
+                                       std::vector<point>& points_y, box& b) {
   if (points_x.size() < 3) {
     return square();
   } else if (points_x.size() < 100 && points_x.size() >= 3) {
@@ -544,7 +550,7 @@ static square largest_square_recursion(std::vector<point>& points_x,
     std::list<mesh_point> mr = create_mesh_list(right, m);
     fill_vertical_points(ml, m, box_left);
     fill_vertical_points(mr, m, box_right);
-    fill_horizontal_points(ml, mr, m);
+    fill_horizontal_points(ml, mr);
     strip(ml);
     strip(mr);
     add_vertical_connections(mr, m);
