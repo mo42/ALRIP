@@ -5,14 +5,14 @@
 #include "vec.h"
 
 bool below(point& a, point& b, point& c) {
-  long m = ((long)a.y - (long)b.y) / ((long)a.x - (long)b.x);
-  long d = (long)a.y - m * (long)a.x;
-  return (long)c.y < m * (long)c.x + d;
+  long m = (static_cast<long>(a.y) - static_cast<long>(b.y)) / (static_cast<long>(a.x) - static_cast<long>(b.x));
+  long d = static_cast<long>(a.y) - m * static_cast<long>(a.x);
+  return static_cast<long>(c.y) < m * static_cast<long>(c.x) + d;
 }
 
 bool is_inside(point& p, std::vector<point>& polygon) {
   bool inside = false;
-  for (unsigned int i = 0, j = 1, k = 2, l = 3; i < polygon.size(); ++i,
+  for (std::size_t i = 0, j = 1, k = 2, l = 3; i < polygon.size(); ++i,
                     ++j %= polygon.size(), ++k %= polygon.size(),
                     ++l %= polygon.size()) {
     if (((p.x < polygon[i].x && p.x > polygon[j].x) ||
@@ -40,7 +40,7 @@ bool below(vec& a, vec& b, vec& c) {
 
 bool is_inside(vec& p, std::vector<vec>& polygon) {
   bool inside = false;
-  for (unsigned int i = 0, j = 1, k = 2, l = 3; i < polygon.size(); ++i,
+  for (std::size_t i = 0, j = 1, k = 2, l = 3; i < polygon.size(); ++i,
                     ++j %= polygon.size(), ++k %= polygon.size(),
                     ++l %= polygon.size()) {
     if (((p.x < polygon[i].x && p.x > polygon[j].x) ||
