@@ -10,6 +10,7 @@
 #include <stack>
 #include <vector>
 
+#include "les.h"
 #include "box.h"
 #include "corner.h"
 #include "math.h"
