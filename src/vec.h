@@ -13,7 +13,7 @@ public:
   /// Generate a point at the origin (zero vector).
   vec(void);
   /// Generate a specific point or vector.
-  vec(double xx, double yy);
+  vec(double x, double y);
   /// Return true if two points or vectors are equal.
   bool operator==(const vec& v) const;
   /// Return true if two points or vectors are not equal.

@@ -7,7 +7,7 @@ vec::vec() {
   y = 0.0;
 }
 
-vec::vec(const double xx, const double yy) : x(xx), y(yy) {}
+vec::vec(const double x, const double y) : x(x), y(y) {}
 
 bool vec::operator==(const vec& v) const { return x == v.x && y == v.y; }
 
