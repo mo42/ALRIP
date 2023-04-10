@@ -28,6 +28,7 @@ add_executable(rr
                src/rot_square.cpp
                src/math.cpp
                src/adapt.cpp
+               src/odd_even_test.cpp
 )
 
 add_executable(ap
