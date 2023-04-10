@@ -14,6 +14,7 @@
 #include "adapt.h"
 #include "line.h"
 #include "math.h"
+#include "odd_even_test.h"
 #include "reader.h"
 #include "rot_square.h"
 #include "vec.h"
@@ -573,43 +574,6 @@ static rot_square sample_square(std::vector<std::vector<vec>>& polygon,
     l += (*i).size();
   }
   return largest_square_permutation(l0, l1, l2, scale);
-}
-
-/**
- * Return true if the point c lies below the segment a b.
- * Point c lies between a and b.
- */
-static bool below(vec& a, vec& b, vec& c) {
-  long m = (a.y - b.y) / (a.x - b.x);
-  long d = a.y - m * a.x;
-  return c.y < m * c.x + d;
-}
-
-/**
- * Return if the point lies inside the polygon.
- * There are at most two subsequent points p1, p2 such that p1.x ==
- * p2.x or p1.y == p2.y
- */
-static bool is_inside(vec& p, std::vector<vec>& polygon) {
-  bool inside = false;
-  for (size_t i = 0, j = 1, k = 2, l = 3; i < polygon.size(); ++i,
-              ++j %= polygon.size(), ++k %= polygon.size(),
-              ++l %= polygon.size()) {
-    if (((p.x < polygon[i].x && p.x > polygon[j].x) ||
-         (p.x > polygon[i].x && p.x < polygon[j].x)) &&
-        (below(polygon[i], polygon[j], p)))
-      inside = !inside;
-    if ((p.x == polygon[j].x) &&
-        ((p.x < polygon[i].x && p.x > polygon[k].x) ||
-         (p.x > polygon[i].x && p.x < polygon[k].x)) &&
-        (p.y < polygon[j].y))
-      inside = !inside;
-    if ((p.x == polygon[j].x && p.x == polygon[k].x) &&
-        (!((p.x < polygon[i].x && p.x < polygon[l].x) ||
-           (p.x > polygon[i].x && p.x > polygon[l].x))))
-      inside = !inside;
-  }
-  return inside;
 }
 
 /**
