@@ -532,42 +532,42 @@ static rot_square sample_square(std::vector<std::vector<vec>>& polygon,
                                 vec& scale) {
   // Sample uniformly at random from a multi-polygon
   // Calculate the size of the entire instance
-  unsigned int size = 0;
+  size_t size = 0;
   for (auto i = polygon.begin(); i != polygon.end(); ++i)
     size += (*i).size();
   // Generate sample select (sub-) polygon
-  unsigned int sample = rand() % size;
+  size_t sample = static_cast<size_t>(rand()) % size;
   // select (sub-) polygon
-  unsigned int l = 0, u = 0;
+  size_t l = 0, u = 0;
   line l0;
   for (auto i = polygon.begin(); i != polygon.end(); ++i) {
     u += (*i).size();
     if (l <= sample && sample < u) {
-      unsigned int j = sample - l;
+      size_t j = sample - l;
       l0 = line((*i)[j], (*i)[j + 1 % (*i).size()]);
     }
     l += (*i).size();
   }
-  sample = rand() % size;
+  sample = static_cast<size_t>(rand()) % size;
   l = 0;
   u = 0;
   line l1;
   for (auto i = polygon.begin(); i != polygon.end(); ++i) {
     u += (*i).size();
     if (l <= sample && sample < u) {
-      unsigned int j = sample - l;
+      size_t j = sample - l;
       l1 = line((*i)[j], (*i)[j + 1 % (*i).size()]);
     }
     l += (*i).size();
   }
-  sample = rand() % size;
+  sample = static_cast<size_t>(rand()) % size;
   l = 0;
   u = 0;
   line l2;
   for (auto i = polygon.begin(); i != polygon.end(); ++i) {
     u += (*i).size();
     if (l <= sample && sample < u) {
-      unsigned int j = sample - l;
+      size_t j = sample - l;
       l2 = line((*i)[j], (*i)[j + 1 % (*i).size()]);
     }
     l += (*i).size();
@@ -593,8 +593,8 @@ static bool below(vec& a, vec& b, vec& c) {
 static bool is_inside(vec& p, std::vector<vec>& polygon) {
   bool inside = false;
   for (size_t i = 0, j = 1, k = 2, l = 3; i < polygon.size(); ++i,
-                    ++j %= polygon.size(), ++k %= polygon.size(),
-                    ++l %= polygon.size()) {
+              ++j %= polygon.size(), ++k %= polygon.size(),
+              ++l %= polygon.size()) {
     if (((p.x < polygon[i].x && p.x > polygon[j].x) ||
          (p.x > polygon[i].x && p.x < polygon[j].x)) &&
         (below(polygon[i], polygon[j], p)))
