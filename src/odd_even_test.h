@@ -14,7 +14,7 @@ bool below(point& a, point& b, point& c);
  * There are at most two subsequent points p1, p2 such that p1.x ==
  * p2.x or p1.y == p2.y
  */
-bool is_inside(point& p, std::vector<point>& polygon);
+bool is_inside(const point& p, const std::vector<point>& polygon);
 
 /**
  * Return if the point c lies below the segment a b.
