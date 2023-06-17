@@ -28,7 +28,7 @@ public:
   /// Set borders of the box.
   box(tcoord lx, tcoord rx, tcoord uy, tcoord ly);
   /// Copy constructor
-  box(const box& b);
+  box(const box& b) = default;
   /// Return the horizontal distance from the point to the box.
   tcoord distance_x(const point& p, type_side x, type_side y);
   /// Return the vertical distance from the point corner to the box.
