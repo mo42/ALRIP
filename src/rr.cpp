@@ -14,7 +14,6 @@
 #include "adapt.h"
 #include "line.h"
 #include "math.h"
-#include "odd_even_test.h"
 #include "reader.h"
 #include "rot_square.h"
 #include "vec.h"

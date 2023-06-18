@@ -11,7 +11,6 @@ set(SOURCES
     src/line.cpp
     src/math.cpp
     src/mesh_point.cpp
-    src/odd_even_test.cpp
     src/point.cpp
     src/reader.cpp
     src/rot_square.cpp
@@ -28,13 +27,11 @@ add_executable(rr
                src/rot_square.cpp
                src/math.cpp
                src/adapt.cpp
-               src/odd_even_test.cpp
 )
 
 add_executable(ap
                src/ap.cpp
                src/reader.cpp
-               src/odd_even_test.cpp
                src/les.cpp
                src/point.cpp
                src/square.cpp
