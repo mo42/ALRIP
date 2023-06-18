@@ -1,6 +1,8 @@
 #ifndef MATH_H_
 #define MATH_H_
 
+#include <vector>
+
 #include "line.h"
 #include "point.h"
 #include "square.h"
@@ -31,5 +33,12 @@ bool comp_point_x(point i, point j);
 bool comp_point_y(point i, point j);
 /// Return the size of the square.
 double size(rot_square& s);
+
+/**
+ * Return if the point lies inside the polygon.
+ * There are at most two subsequent points p1, p2 such that p1.x ==
+ * p2.x or p1.y == p2.y
+ */
+bool is_inside(vec& p, std::vector<vec>& polygon);
 
 #endif // MATH_H_
