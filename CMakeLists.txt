@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.2)
 
 project(ler)
 
+find_package(RapidJSON REQUIRED)
+include_directories(${RapidJSON_INCLUDE_DIRS})
+
 set(SOURCES
     src/adapt.cpp
     src/ap.cpp
