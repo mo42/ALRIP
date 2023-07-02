@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
     std::cout << "Usage: filename scale factor" << std::endl;
     return 1;
   } else {
-    inner_outer io = read_file(argv[1]);
+    inner_outer io = read_geo_json(argv[1]);
     polygons outer = std::get<0>(io);
     polygons inner = std::get<1>(io);
     instances inst;

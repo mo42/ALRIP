@@ -628,7 +628,7 @@ int main(int argc, char** argv) {
     // Add seed as argument for reproducible output
     srand(42);
     double scale = 1.0 / std::stoi(argv[2]);
-    inner_outer io = read_file(argv[1]);
+    inner_outer io = read_geo_json(argv[1]);
     polygons outer = std::get<0>(io);
     polygons inner = std::get<1>(io);
     instances inst;
