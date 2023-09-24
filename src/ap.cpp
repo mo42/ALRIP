@@ -1,3 +1,4 @@
+#include <limits>
 #include <climits>
 #include <cmath>
 #include <fstream>
@@ -45,12 +46,45 @@ static void strip_segments(std::vector<point>& polygon) {
 /**
  * Create an instance for the largest empty square algorithm.
  */
-static std::vector<point> create_instance(polygons p) {
+static std::vector<point> create_instance(polygons p, int scale) {
   std::vector<point> points;
+  vec running_max(
+      std::numeric_limits<double>::lowest(),
+      std::numeric_limits<double>::lowest()
+  );
+  vec running_min(
+      std::numeric_limits<double>::max(),
+      std::numeric_limits<double>::max()
+  );
   for (auto i = p.begin(); i != p.end(); ++i) {
     for (auto j = (*i).begin(); j != (*i).end(); ++j) {
-      points.push_back(point(static_cast<unsigned long>((*j).x),
-                             static_cast<unsigned long>((*j).y)));
+      if((*j).x > running_max.x) {
+        running_max.x = (*j).x;
+      }
+      if((*j).y > running_max.y) {
+        running_max.y = (*j).y;
+      }
+      if((*j).x < running_min.x) {
+        running_min.x = (*j).x;
+      }
+      if((*j).y < running_min.y) {
+        running_min.y = (*j).y;
+      }
+    }
+  }
+  unsigned long tcoord_min = std::numeric_limits<tcoord>::lowest();
+  unsigned long tcoord_max = std::numeric_limits<tcoord>::max();
+  double scale_x = static_cast<double>(tcoord_max - tcoord_min)
+    / (running_max.x - running_min.x)
+    / 2;
+  double scale_y = static_cast<double>(tcoord_max - tcoord_min)
+    / (running_max.y - running_min.y)
+    / 2;
+  for (auto i = p.begin(); i != p.end(); ++i) {
+    for (auto j = (*i).begin(); j != (*i).end(); ++j) {
+      tcoord x = static_cast<tcoord>(((*j).x - running_min.x) * scale_x + tcoord_max);
+      tcoord y = static_cast<tcoord>(((*j).y - running_min.y) * scale_y + tcoord_max);
+      points.push_back(point(x, y));
     }
   }
   return points;
@@ -91,8 +125,7 @@ int main(int argc, char** argv) {
       inst.push_back(k);
     }
     int scale = std::stoi(argv[2]);
-    if (scale <= 1)
-      scale = 1;
+    scale = std::max(scale, 1);
     scale_y(inst, scale);
     // Loop over all instances
     rot_square s, rs;
@@ -104,7 +137,7 @@ int main(int argc, char** argv) {
       }
       max_size = std::max(new_size, max_size);
 
-      std::vector<point> points = create_instance(*i);
+      std::vector<point> points = create_instance(*i, scale);
       strip_segments(points);
       while (true) {
         square n = les(points);
