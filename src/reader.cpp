@@ -11,19 +11,6 @@
 #include "vec.h"
 
 /**
- * This function splits the string s at the character d into a
- * vector of strings.
- */
-static std::vector<std::string> split(const std::string& s, char d) {
-  std::stringstream stream(s);
-  std::string i;
-  std::vector<std::string> tokens;
-  while (std::getline(stream, i, d))
-    tokens.push_back(i);
-  return tokens;
-}
-
-/**
  * Read GeoJSON file and returns a vector of parsed_segments.
  */
 inner_outer read_geo_json(std::string path) {
