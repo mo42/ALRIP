@@ -1,6 +1,32 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.6)
 
 project(ler)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_COMPILER "clang++")
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  add_compile_options(
+    -Wall
+    -Wextra
+    -pedantic
+    # -Werror until all errors are fixed
+    -Wconversion
+    -Wsign-conversion
+    -Wshadow
+    -Wfloat-equal
+    -Wmissing-include-dirs
+    -Wmissing-declarations
+    -Wpointer-arith
+    -Wredundant-decls
+    -Wuninitialized
+    -Wunused
+    -Wold-style-cast
+    -Woverloaded-virtual
+    -Wctor-dtor-privacy
+    -Wformat=2
+  )
+endif()
 
 find_package(RapidJSON REQUIRED)
 include_directories(${RapidJSON_INCLUDE_DIRS})
@@ -49,7 +75,3 @@ add_executable(ap
 )
 
 include_directories(src)
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything -Wno-shadow-field-in-constructor -Wno-c++98-compat -O3")
