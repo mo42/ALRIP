@@ -4,7 +4,7 @@
 
 int main() {
     try {
-        const std::string filepath = "sample.geojson";
+        const std::string filepath = "data/sample.geojson";
         auto polygon = empty_box::parse_polygon_from(filepath);
         assert(polygon.size() == 4);
         auto it = polygon.vertices_begin();
