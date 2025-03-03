@@ -1,5 +1,4 @@
 #include <cmath>
-#include <vector>
 
 #include "line.h"
 #include "math.h"
@@ -47,17 +46,4 @@ bool comp_point_y(point i, point j) { return i.y < j.y; }
 double size(rot_square& s) {
   return length(s.corners[1], s.corners[0]) *
          length(s.corners[3], s.corners[0]);
-}
-
-bool is_inside(vec& p, std::vector<vec>& polygon) {
-  bool inside = false;
-  std::size_t n = polygon.size();
-  for (std::size_t i = 0, j = n - 1; i < n; j = i++) {
-    if (((polygon[i].y > p.y) != (polygon[j].y > p.y)) &&
-        (p.x < (polygon[j].x - polygon[i].x) * (p.y - polygon[i].y) /
-                       (polygon[j].y - polygon[i].y) +
-                   polygon[i].x))
-      inside = !inside;
-  }
-  return inside;
 }

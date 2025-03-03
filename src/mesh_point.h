@@ -5,7 +5,7 @@
 #include "types.h"
 
 /**
- * Enhanced point containing pointers.
+ * \brief Enhanced point containing pointers.
  */
 class mesh_point : public point {
 public:

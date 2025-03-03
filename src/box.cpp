@@ -17,6 +17,12 @@ box::box(tcoord lx, tcoord ux, tcoord uy, tcoord ly) {
   this->ly = ly;
 }
 
+box::box(const box& b) {
+  this->lx = b.lx;
+  this->ux = b.ux;
+  this->uy = b.uy;
+  this->ly = b.ly;
+}
 tcoord box::distance_x(const point& p, type_side x, type_side y) {
   if (x == type_side::left) {
     return p.x - lx;
@@ -75,5 +81,4 @@ tcoord box::upper_y() { return uy; }
 tcoord box::lower_y() { return ly; }
 
 tcoord box::left_x() { return lx; }
-
 tcoord box::right_x() { return ux; }

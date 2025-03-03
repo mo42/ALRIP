@@ -9,7 +9,4 @@ typedef std::tuple<std::vector<std::vector<vec>>, std::vector<std::vector<vec>>>
     inner_outer;
 typedef std::vector<polygons> instances;
 
-/**
- * Parse polygons from a GeoJSON file.
- */
-inner_outer read_geo_json(std::string path);
+inner_outer read_file(std::string path);

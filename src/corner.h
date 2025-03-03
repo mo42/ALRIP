@@ -7,7 +7,7 @@
 #include "types.h"
 
 /**
- * Representation of a axis-parallel corner.
+ * \brief Representation of a axis-parallel corner.
  *
  * A corner is defined by two points such that the corner can be
  * restricted by a third point and yields a maximum square.

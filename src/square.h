@@ -4,7 +4,7 @@
 #include "point.h"
 #include "rot_square.h"
 
-/** Representation of a square
+/** \brief Representation of a square
  *
  * A square is represented by four points which are the corners.
  */

@@ -2,14 +2,13 @@
 #define VEC_H_
 
 /**
- * Represents a point in two-dimensional Euclidean space and a
+ * \brief Represents a point in two-dimensional euclidian space and a
  * vector.
  */
 class vec {
 public:
   double x;
   double y;
-  vec(vec const&) = default;
   /// Generate a point at the origin (zero vector).
   vec(void);
   /// Generate a specific point or vector.
@@ -40,7 +39,7 @@ public:
   vec& operator/=(double s);
   /// Return the dot product of two vectors.
   double operator*(const vec& v) const;
-  /// Return the Euclidean distance from the origin the point (length of
+  /// Return the euclidian distance from the origin the point (length of
   /// the vector).
   double length(void) const;
   /// Return a vector that is perpendicular to this vector.

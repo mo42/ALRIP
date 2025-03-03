@@ -5,7 +5,7 @@
 #include "square.h"
 
 /**
- * Calculate the largest empty square from the point set points.
+ * \brief Calculate the largest empty square from the point set points.
  */
 square les(std::vector<point>& points);
 

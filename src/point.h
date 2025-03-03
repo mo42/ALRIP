@@ -4,11 +4,10 @@
 #include "types.h"
 
 /**
- * Represents a point in two-dimensional Euclidean space.
+ * \brief Represents a point in two-dimensional euclidian space.
  */
 class point {
 public:
-  point(point const&) = default;
   /// Generate a point at the origin.
   point(void);
   /// Generate a specific point.

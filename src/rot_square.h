@@ -5,7 +5,7 @@
 #include "vec.h"
 
 /**
- * Representation of a square that can be arbitrarily rotated.
+ * \brief Representation of a square that can be arbitrarily rotated.
  *
  * The rotated square is represented by four points which are the
  * corners.
@@ -30,7 +30,7 @@ public:
   /// Copy constructor
   rot_square(const rot_square& s);
   /// Creates square defined by four points (the polygon created by the
-  /// four points must equal the square, i.e., the sequence matters).
+  /// four points must equal the square, i.  e. the sequence matters).
   rot_square(const vec& p, const vec& q, const vec& r, const vec& s);
   /// Compare squares according to size.
   bool operator>(const rot_square& s) const;

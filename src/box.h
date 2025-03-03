@@ -7,7 +7,7 @@
 #include "point.h"
 
 /**
- * Represents the box which contains all points.
+ * \brief Represents the box which contains all points.
  *
  * The maximum empty square problem requires a minimal box containing
  * all points.
@@ -28,7 +28,7 @@ public:
   /// Set borders of the box.
   box(tcoord lx, tcoord rx, tcoord uy, tcoord ly);
   /// Copy constructor
-  box(const box& b) = default;
+  box(const box& b);
   /// Return the horizontal distance from the point to the box.
   tcoord distance_x(const point& p, type_side x, type_side y);
   /// Return the vertical distance from the point corner to the box.
@@ -37,7 +37,7 @@ public:
   void split_left_at(tcoord m, box& b);
   /// Split the box such that m is the lower x coordinate.
   void split_right_at(tcoord m, box& b);
-  /// Set the coordinates of the box.
+  /// Set the coordiantes of the box.
   void set(tcoord lx, tcoord rx, tcoord uy, tcoord ly);
   /// Add points to the list such that the first and last points
   /// in the list are the corners of the box.
