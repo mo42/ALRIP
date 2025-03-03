@@ -1,35 +1,31 @@
-# Approximate Largest Empty Rectangle in Polygons
-Approximate the largest empty rectangle inside general polygons with holes.
+# Approximate Largest Empty Rectangles in Polygons
+`libabel` is a library for approximating the largest empty rectangle inside
+general polygons with holes. In practice, you can label geographic areas with
+this.
 
-Automatically placing labels on maps is a problem relevant geographic
-information systems. In this case, the shape of the label and, thus, the aspect
-ratio is known.
+That's why it's called `libabel` so you can link to it using `-label`.
 
-This repository contains implementations of two algorithms for finding
-Approximate Largest Rectangles Inside general Polygons with holes (ALRIP):
+# Build
 
-- `ap`: for finding axis-aligned rectangles
-- `rr`: for finding arbitrary rotated rectangles
+```sh
+git clone https://github.com/mo42/alrip.git && cd alrip/src
+make
+```
 
-## Examples
+`libabel.a` provides you the following function:
+
+```c
+rot_square axis_aligned_box(inner_outer& io, int scale);
+```
+
+where `io` is a tuple of inner polygons (the holes) and outer polygons (the
+areas to be labelled).
+
+# Examples
 
 ![Examples Small](example12.png "Examples Small")
 ![Example Large](example3.png "Example Large")
 
-## Prerequisites & Compiling
-
-Prerequisites:
-- C++ compiler (e.g., GCC, Clang)
-- CMake (for building)
-
-Compiling:
-
-```sh
-git clone https://github.com/mo42/alrip.git && cd alrip
-mkdir build
-cmake ../
-make
-```
 # License
 
 We distribute ALRIP under the MIT License.

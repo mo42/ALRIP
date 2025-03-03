@@ -1,0 +1,130 @@
+#include <climits>
+#include <cmath>
+#include <fstream>
+#include <iostream>
+#include <list>
+#include <map>
+#include <sstream>
+#include <string>
+#include <vector>
+
+#include <time.h>
+
+#include "adapt.h"
+#include "les.h"
+#include "math.h"
+#include "odd_even_test.h"
+#include "point.h"
+#include "reader.h"
+#include "rot_square.h"
+#include "size.h"
+#include "square.h"
+#include "types.h"
+
+/**
+ * \brief Strip segments if there are several consecutive parallel
+ * segments.
+ *
+ * This procedure ensures that there are at most two subsequent
+ * points p1, p2 such that p1.x == p2.x or p1.y == p2.y.
+ * If there are three or more points only the start and the end
+ * are kept which does not change the polygon.
+ *
+ */
+void strip_segments(std::vector<point>& polygon) {
+  auto i = polygon.begin();
+  auto j = std::next(i, 1);
+  for (auto k = std::next(j, 1); k != polygon.end(); ++i, ++j, ++k) {
+    if (((*i).x == (*j).x && (*j).x == (*k).x) ||
+        ((*i).y == (*j).y && (*j).y == (*k).y)) {
+      j = polygon.erase(j);
+      ++k;
+      ++i;
+    }
+  }
+}
+
+/**
+ * \brief Create an instance for the largest empty square algorithm.
+ */
+std::vector<point> create_instance(polygons p) {
+  std::vector<point> points;
+  for (auto i = p.begin(); i != p.end(); ++i) {
+    for (auto j = (*i).begin(); j != (*i).end(); ++j) {
+      points.push_back(point(static_cast<unsigned long>((*j).x),
+                             static_cast<unsigned long>((*j).y)));
+    }
+  }
+  return points;
+}
+
+/**
+ * \brief Scale all points vertically.
+ */
+void scale_y(instances& inst, int scale) {
+  for (auto i = inst.begin(); i != inst.end(); ++i) {
+    for (auto j = (*i).begin(); j != (*i).end(); ++j) {
+      for (auto k = (*j).begin(); k != (*j).end(); ++k) {
+        (*k).y *= static_cast<double>(scale);
+      }
+    }
+  }
+}
+
+rot_square axis_aligned_box(inner_outer& io, int scale) {
+  polygons outer = std::get<0>(io);
+  std::cout << "Outer: " << outer.size() << std::endl;
+  polygons inner = std::get<1>(io);
+  std::cout << "Inner: " << inner.size() << std::endl;
+  instances inst;
+  // Loop over all outer polygons
+  for (auto i = outer.begin(); i != outer.end(); ++i) {
+    polygons k;
+    k.push_back(*i);
+    // For every inner polygon, check if it is inside of *i
+    for (auto j = inner.begin(); j != inner.end(); ++j) {
+      vec p = (*j)[0];
+      if (is_inside(p, (*i)))
+        k.push_back(*j);
+    }
+    inst.push_back(k);
+  }
+  if (scale <= 1)
+    scale = 1;
+  scale_y(inst, scale);
+  // Loop over all instances
+  rot_square s, rs;
+  unsigned int max_size = 0;
+  for (auto i = inst.begin(); i != inst.end(); ++i) {
+    unsigned int new_size = 0;
+    for (auto j = (*i).begin(); j != (*i).end(); ++j) {
+      max_size += (*j).size();
+    }
+    max_size = std::max(new_size, max_size);
+
+    std::vector<point> points = create_instance(*i);
+    strip_segments(points);
+    while (true) {
+      square n = les(points);
+      // Adapt square to segments
+      rs = n.convert_rot_square();
+      if (rs.size == 0.0)
+        break;
+      vec m = rs.mid_point();
+      // Check if the midpoint is inside the outer polygon
+      if (is_inside(m, (*i)[0])) {
+        // Adapt all segments
+        for (auto j = (*i).begin(); j != (*i).end(); ++j)
+          adapt(rs, *j);
+        break;
+      }
+      point pm =
+          point(static_cast<unsigned int>(m.x), static_cast<unsigned int>(m.y));
+      points.push_back(pm);
+    }
+    if (rs > s) {
+      s = rs;
+    }
+  }
+  return s;
+}
