@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
   } else {
     inner_outer io = read_file(argv[1]);
     int scale = std::stoi(argv[2]);
-    rot_square s = axis_aligned_box(io, scale);
+    rot_square s = approx_max_axis_aligned(io, scale);
     s.corners[0].y /= scale;
     s.corners[1].y /= scale;
     s.corners[2].y /= scale;
