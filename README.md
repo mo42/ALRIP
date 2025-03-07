@@ -8,7 +8,7 @@ That's why it's called `libabel` so you can link to it using `-label`.
 # Build
 
 ```sh
-git clone https://github.com/mo42/alrip.git && cd alrip/src
+git clone https://github.com/mo42/libabel.git && cd libabel/src
 make
 ```
 
@@ -30,4 +30,4 @@ areas to be labelled).
 
 # License
 
-We distribute ALRIP under the MIT License.
+We distribute libabel under the MIT License.
