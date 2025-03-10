@@ -21,7 +21,9 @@ rot_square approx_max_rotated(inner_outer& io, double scale);
 ```
 
 where `io` is a tuple of inner polygons (the holes) and outer polygons (the
-areas to be labelled).
+areas to be labelled). The parameter `scale` determines the aspect ratio of the
+rectangle you wish to find (e.g., 3 mean the rectangle's width is 3 times
+longer than its height).
 
 # Examples
 
